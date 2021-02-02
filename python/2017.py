@@ -3,7 +3,8 @@ import yaml
 config  ={}
 config['year'] = 2017
 config['tree_name'] = 'Vars'
-config['file_name'] = '2017/data.root'
+config['lumi_text'] = '$41.5 fb^{-1}$' 
+config['path'] = '/user/hanwen/trigger/hzz2l2nu2017/OUTPUTS/DileptonTrees/output' 
 config['observable'] = ['leading_pt']#['ll_deltaR','jet_cat','ptmiss','ll_pt','leading_pt','trailing_pt','leading_abseta','trailing_abseta','nJet','nJetBuilder','PV_npvs','PV_npvsGood']
 config['observable2D'] = {'leading_abseta':'trailing_abseta'}#,'ll_pt':'ll_deltaR',}
 config['binning'] = {'ll_mass':[25, 75, 105, 200],

@@ -1,6 +1,7 @@
 year: 2017
 tree_name: Vars
-file_name: 2017/data.root
+lumi_text: $41.5 fb^{-1}$
+path: /user/hanwen/trigger/hzz2l2nu2017/OUTPUTS/DileptonTrees/output
 observable:
 - leading_pt
 observable2D:

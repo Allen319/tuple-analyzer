@@ -170,29 +170,29 @@ binning:
   - 0.0
   - 1.2
   - 2.4
-pre-selections: !!set
-  (PFHT800_PFMET85_PFMHT85_IDTight && ptmiss > 1.1 * 85): null
-  (PFMET120_PFMHT120_IDTight && ptmiss > 1.1 *120): null
-  (PFMET130_PFMHT130_IDTight && ptmiss > 1.1 *130): null
-  (PFMET200_HBHECleaned && ptmiss > 1.1 *200): null
-  (CaloMET250_HBHECleaned && ptmiss > 1.1 *250): null
-  PFHT450_SixPFJet36: null
-  (PFMET250_HBHECleaned && ptmiss > 1.1 *250): null
-  (PFMET300_HBHECleaned && ptmiss > 1.1 *300): null
-  (PFHT500_PFMET110_PFMHT110_IDTight && ptmiss > 1.1 * 110): null
-  (PFMET140_PFMHT140_IDTight && ptmiss > 1.1 *140): null
-  (CaloMET350_HBHECleaned && ptmiss > 1.1 *350): null
-  (PFHT500_PFMET100_PFMHT100_IDTight && ptmiss > 1.1 * 100): null
-  (PFHT700_PFMET95_PFMHT95_IDTight && ptmiss > 1.1 * 95): null
-  (CaloMET300_HBHECleaned && ptmiss > 1.1 *300): null
-  PFHT330PT30_QuadPFJet_75_60_45_40: null
-  (PFMET120_PFMHT120_IDTight_PFHT60 && ptmiss > 1.1 *120): null
+MET-selections:
+- (PFHT500_PFMET100_PFMHT100_IDTight && ptmiss > 1.1 * 100)
+- (PFHT500_PFMET110_PFMHT110_IDTight && ptmiss > 1.1 * 110)
+- (PFHT700_PFMET95_PFMHT95_IDTight && ptmiss > 1.1 * 95)
+- (PFHT800_PFMET85_PFMHT85_IDTight && ptmiss > 1.1 * 85)
+- (PFMET120_PFMHT120_IDTight && ptmiss > 1.1 *120)
+- (PFMET130_PFMHT130_IDTight && ptmiss > 1.1 *130)
+- (PFMET140_PFMHT140_IDTight && ptmiss > 1.1 *140)
+- (PFMET120_PFMHT120_IDTight_PFHT60 && ptmiss > 1.1 *120)
+- (PFMET200_HBHECleaned && ptmiss > 1.1 *200)
+- (PFMET250_HBHECleaned && ptmiss > 1.1 *250)
+- (PFMET300_HBHECleaned && ptmiss > 1.1 *300)
+- (CaloMET250_HBHECleaned && ptmiss > 1.1 *250)
+- (CaloMET300_HBHECleaned && ptmiss > 1.1 *300)
+- (CaloMET350_HBHECleaned && ptmiss > 1.1 *350)
+- PFHT330PT30_QuadPFJet_75_60_45_40
+- PFHT450_SixPFJet36
 channels:
   ee:
     baseline: lepton_cat == 0 && ll_mass > 76.
     testflag:
     - Ele23_Ele12_CaloIdL_TrackIdL_IsoVL
-    - DoubleEle33_CaloIdL_MW
+    - DoubleEle25_CaloIdL_MW
     - DoublePhoton70
     - Ele32_WPTight_Gsf
     - Photon200

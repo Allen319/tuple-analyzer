@@ -29,7 +29,7 @@ config['binning'] = {#'ll_mass':[25, 75, 105, 200],
                      'leading_abseta_emu':[0.0,1.5,2.4],
                      'trailing_abseta_emu':[0.0,1.2,2.4],
                     }
-config['pre-selections'] ={ 
+config['MET-selections'] =[ 
 '(PFHT500_PFMET100_PFMHT100_IDTight && ptmiss > 1.1 * 100)',
 '(PFHT500_PFMET110_PFMHT110_IDTight && ptmiss > 1.1 * 110)',
 '(PFHT700_PFMET95_PFMHT95_IDTight && ptmiss > 1.1 * 95)',
@@ -46,12 +46,12 @@ config['pre-selections'] ={
 '(CaloMET350_HBHECleaned && ptmiss > 1.1 *350)',
 'PFHT330PT30_QuadPFJet_75_60_45_40',
 'PFHT450_SixPFJet36',
-}
+]
 config['channels'] = {
     'ee':{
           'baseline':'lepton_cat == 0 && ll_mass > 76.',
           'testflag':['Ele23_Ele12_CaloIdL_TrackIdL_IsoVL', 
-                      'DoubleEle33_CaloIdL_MW', 
+                      'DoubleEle25_CaloIdL_MW', 
                       'DoublePhoton70', 
                       'Ele32_WPTight_Gsf',
                       'Photon200',]

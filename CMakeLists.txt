@@ -25,6 +25,7 @@ add_library(utils STATIC
   src/Options.cc)
 target_include_directories(utils PUBLIC include)
 target_link_libraries(utils
+  PRIVATE stdc++fs
   PUBLIC Boost::boost Boost::program_options
   PUBLIC yaml-cpp
 )

@@ -34,11 +34,11 @@ int main(int argc, char **argv){
   if  (options.Exists("output")) outputName = options.GetAs<std::string>("output");
   TFile *inputFile = new TFile(TString(pathAndName));
   TTree *ttr = (TTree *)inputFile->Get("Vars");
-  auto *list = ttr->GetListOfBranches();
-  TBranch *branch = (TBranch*)list->Last();
+  auto *brlist = ttr->GetListOfBranches();
   std::vector<TString> listOfBranches;
 
-  for (auto it = list->begin(); it!= list->end() ;it.Next()) listOfBranches.push_back(((TBranch*)it())->GetName());
+  //for (auto it = list->begin(); it!= list->end() ;it.Next()){std::cout <<((TObject*)it())->GetName()<<std::endl;}//std::cout<<it()->ClassName()<<std::endl;} //listOfBranches.push_back(((TObject*)it())->GetName());}
+  for (int i = 0 ; i < brlist->GetEntries(); i++ ) listOfBranches.push_back(((TBranch*)brlist->At(i))->GetName());
   inputFile->Close();
   delete inputFile;
   TFile *outputFile = new TFile(options.GetAs<std::string>("output").c_str(),"recreate");
@@ -49,8 +49,8 @@ int main(int argc, char **argv){
     unsigned int brNumber = 0;
     for (auto br = listOfBranches.begin();br != listOfBranches.end();br++){
       if (boost::contains(*it, (*br).View())) brNumber++;
-      if (boost::contains(*it, "ptmiss")) brNumber--;
     } 
+    if (boost::contains(*it, "ptmiss")) brNumber--;
     if(brNumber ==0) met_triggers.erase(it);
     else ++it;
   }

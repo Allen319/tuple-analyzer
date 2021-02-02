@@ -1,6 +1,5 @@
 #include <iostream>
 #include <array>
-#include <filesystem>
 #include <map>
 #include <memory>
 #include <string>
@@ -24,8 +23,6 @@ namespace po = boost::program_options;
 int main(int argc, char **argv){
 
   Options options(argc, argv);
-
-  TFile *outputFile = new TFile(options.GetAs<std::string>("output").c_str(),"recreate");
   YAML::Node const config = options.GetConfig();
   std::string tree = Options::NodeAs<std::string>(config, {"tree_name"});
   std::string filename;
@@ -33,9 +30,30 @@ int main(int argc, char **argv){
   else filename = Options::NodeAs<std::string>(config, {"file_name"});
   std::string pathAndName = FileInPath::Resolve(filename);//pathToFile + std::string("/") + filename ;//boost::algorithm::join(pathToFile, filename, "/");
   
+  std::string outputName = "output.root";
+  if  (options.Exists("output")) outputName = options.GetAs<std::string>("output");
+  TFile *inputFile = new TFile(TString(pathAndName));
+  TTree *ttr = (TTree *)inputFile->Get("Vars");
+  auto *list = ttr->GetListOfBranches();
+  TBranch *branch = (TBranch*)list->Last();
+  std::vector<TString> listOfBranches;
+
+  for (auto it = list->begin(); it!= list->end() ;it.Next()) listOfBranches.push_back(((TBranch*)it())->GetName());
+  inputFile->Close();
+  delete inputFile;
+  TFile *outputFile = new TFile(options.GetAs<std::string>("output").c_str(),"recreate");
   EnableImplicitMT();
   RDataFrame d(tree,pathAndName);
   std::vector<std::string> met_triggers = Options::GetStrings(config, {"MET-selections"});
+  for (auto it = met_triggers.begin(); it != met_triggers.end(); ){
+    unsigned int brNumber = 0;
+    for (auto br = listOfBranches.begin();br != listOfBranches.end();br++){
+      if (boost::contains(*it, (*br).View())) brNumber++;
+      if (boost::contains(*it, "ptmiss")) brNumber--;
+    } 
+    if(brNumber ==0) met_triggers.erase(it);
+    else ++it;
+  }
   std::vector<std::string> channels = {"ee","mumu","emu"};
   std::vector<std::string> obs = Options::GetStrings(config, {"observable"});
   std::map<std::string, std::string> obs2D = Options::NodeAs<std::map<std::string, std::string>>(config, {"observable2D"});
